@@ -10,6 +10,7 @@ let tarjetaDos=null
 let primerResultado=null
 let segundoResultado=null
 let abierto=null
+let acabado=false
 //tiempo
 let segundos=58
 let minutos=9
@@ -50,6 +51,9 @@ botones[i].addEventListener('click', ()=>{
             if(abierto==2){
             abierto=0
             aciertos++
+            if(aciertos==8){
+                acabado=true
+            }
             }
         }else if(primerResultado!=segundoResultado){
             if(abierto==2){
@@ -68,9 +72,11 @@ botones[i].addEventListener('click', ()=>{
 }
 
 function temporizador(){
-    setInterval(() => {
+   let temp=setInterval(() => {
+        if(acabado==true){
+            clearInterval(temp)
+        }
         segundos++
-        
         if(minutos<10){
         time.innerHTML=`00:00:0${segundos}`
         if(segundos>9){
