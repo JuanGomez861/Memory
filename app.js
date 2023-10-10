@@ -11,21 +11,22 @@ let primerResultado=null
 let segundoResultado=null
 let abierto=null
 let acabado=false
+let timer
 //tiempo
-let segundos=58
-let minutos=9
-let horas=null 
-//desorganizar arreglo 
+let segundos=0
+let minutos=0
+let horas=0
 
 
+//desorganizar arreglo
 numeros.sort(()=> Math.random()-0.5)
 console.log(numeros)
 
-
+//logica del juego
 for(let i=0;i<botones.length;i++){
 botones[i].addEventListener('click', ()=>{
     if(abierto==null){
-        temporizador()
+        temporizador() // para que si presiona boton
     }
     abierto++
     
@@ -53,6 +54,7 @@ botones[i].addEventListener('click', ()=>{
             aciertos++
             if(aciertos==8){
                 acabado=true
+                clearInterval(timer)
             }
             }
         }else if(primerResultado!=segundoResultado){
@@ -72,46 +74,29 @@ botones[i].addEventListener('click', ()=>{
 }
 
 function temporizador(){
-   let temp=setInterval(() => {
-        if(acabado==true){
-            clearInterval(temp)
-        }
+    timer=setInterval(() => {
         segundos++
-        if(minutos<10){
-        time.innerHTML=`00:00:0${segundos}`
-        if(segundos>9){
-            time.innerHTML=`00:00:${segundos}`
-        }
-        if(segundos==60){
-            segundos=0
-            minutos++
-        }
-    }
-        if(minutos>0 && segundos<10){
-            if(minutos>=10){
-                time.innerHTML=`00:${minutos}:0${segundos}`
-            }else{
-                time.innerHTML=`00:0${minutos}:0${segundos}`
-            }
-            
-            if(minutos>10){
-
-            }
-        }
-        if(minutos>0 && segundos>=10){
-            if(minutos>=10){
-                time.innerHTML=`00:${minutos}:${segundos}`
-            }else{
-                time.innerHTML=`00:0${minutos}:${segundos}`
-            }
-            
-        }
-        if(minutos>=10){
+        time.innerHTML=draw(segundos,minutos,horas)
             if(segundos==60){
                 segundos=0
                 minutos++
             }
-        }
-    
+            if(minutos==60){
+                minutos=0
+                horas++
+            }
     }, 1000);
+}
+
+function draw(s,m,h){
+    if(s<10 && m<10){
+        return `0:${h}:0${m}:0${s}`
+    }else if(m<10){
+        return `0${h}:0${m}:${s}`
+    }
+    if(s<10 && m>=10){
+        return `0:${h}:${m}:0${s}`
+    }else if(m>=10){
+        return `0.${h}:${m}:${s}`
+    }
 }
