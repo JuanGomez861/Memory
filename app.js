@@ -102,13 +102,18 @@ function draw(s,m,h){
 }
 //setinggs
 let settings=document.getElementById('settings')
+let settings_presionado=false
 let main=document.getElementById('Main')
 let footer=document.getElementById('Footer')
 let restart=document.getElementById('Restart')
 //llamar configuracion
+    
 settings.addEventListener('click',()=>{
+    if(settings_presionado==false){
     cargarConfiguracion()
     document.body.removeChild(footer)
+    }
+    settings_presionado=true
 })
 
 function cargarConfiguracion() {
