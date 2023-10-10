@@ -27,7 +27,7 @@ body{
     align-items: center;
     gap: 10px;
 }
-.header_boton{
+.header_button{
     background-color: #ffa500;
     border: none;
     font-size: 1rem;
@@ -38,7 +38,7 @@ body{
     cursor: pointer;
 }
 
-.header_boton:nth-of-type(2){
+.header_button:nth-of-type(2){
     background-color: rgba(3, 3, 3, .089);
     color: black;
 }
@@ -49,13 +49,13 @@ body{
     justify-content: center;
     padding: 32px;
 }
-.botones{
+.buttons{
     width: 500px;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     place-items: center;
 }
-.boton{
+.button{
     width: 70px;
     height: 70px;
     margin-bottom: 20px;

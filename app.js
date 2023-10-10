@@ -1,5 +1,5 @@
 //incializacion de variables
-let botones=document.getElementsByClassName('boton')
+let botones=document.getElementsByClassName('button')
 let move=document.getElementById('move')
 let numeros=[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8]
 let movimientos=null
@@ -12,27 +12,21 @@ let segundoResultado=null
 let abierto=null
 let acabado=false
 let timer
-//tiempo
-let segundos=0
-let minutos=0
-let horas=0
 
 
 //desorganizar arreglo
 numeros.sort(()=> Math.random()-0.5)
-console.log(numeros)
 
 //logica del juego
 for(let i=0;i<botones.length;i++){
 botones[i].addEventListener('click', ()=>{
     if(abierto==null){
-        temporizador() // para que si presiona boton
+        temporizador() // Manejo de error para que cada que presione un boton no llame el temporizador
     }
     abierto++
     
     if(abierto==1){
         posicion=Array.from(botones).indexOf(event.target)// recuperar posicion del elemento presionddo
-        console.log(posicion)
         tarjetaUno=botones[posicion]
         primerResultado=numeros[posicion]
         tarjetaUno.innerHTML=primerResultado
@@ -52,6 +46,8 @@ botones[i].addEventListener('click', ()=>{
             if(abierto==2){
             abierto=0
             aciertos++
+            tarjetaUno.style.backgroundColor='#BCCEDA'
+            tarjetaDos.style.backgroundColor='#BCCEDA'
             if(aciertos==8){
                 acabado=true
                 clearInterval(timer)
@@ -69,9 +65,13 @@ botones[i].addEventListener('click', ()=>{
             }
         }
     }
-    console.log(abierto)
 } )
 }
+
+//tiempo
+let segundos=0
+let minutos=0
+let horas=0
 
 function temporizador(){
     timer=setInterval(() => {
@@ -87,7 +87,7 @@ function temporizador(){
             }
     }, 1000);
 }
-
+//dibujar el temporizador
 function draw(s,m,h){
     if(s<10 && m<10){
         return `0:${h}:0${m}:0${s}`
@@ -99,4 +99,27 @@ function draw(s,m,h){
     }else if(m>=10){
         return `0.${h}:${m}:${s}`
     }
+}
+//setinggs
+let settings=document.getElementById('settings')
+let main=document.getElementById('Main')
+let footer=document.getElementById('Footer')
+let restart=document.getElementById('Restart')
+//llamar configuracion
+settings.addEventListener('click',()=>{
+    cargarConfiguracion()
+    document.body.removeChild(footer)
+})
+
+function cargarConfiguracion() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'settings.html', true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            main.innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.send();
 }
